@@ -90,7 +90,7 @@ compile_lib: configure
 pdftex-worker.js: compile_bc compile_lib compile_kpathsea
 	opt -strip-debug ${SOURCE_DIR}/build-pdftex/texk/web2c/pdftex >pdftex.bc
 	OBJFILES=$$(for i in `find ${SOURCE_DIR}/build-pdftex/texk/web2c/lib ${SOURCE_DIR}/build-pdftex/texk/kpathsea -name '*.o'` ; do llvm-nm $$i | grep main >/dev/null || echo $$i ; done) && \
-		emcc  --memory-init-file 0 -v --closure 1 -s TOTAL_MEMORY=67108864 -O3  $$OBJFILES pdftex.bc -s INVOKE_RUN=0 --pre-js pre.js --post-js post.js -o pdftex-worker.js
+		emcc  --memory-init-file 0 -v --closure 1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s TOTAL_MEMORY=67108864 -O3 $$OBJFILES pdftex.bc -s INVOKE_RUN=0 --pre-js pre.js --post-js post.js -o pdftex-worker.wasm
 #		emcc -v --minify 0 --closure 0 -s FS_LOG=1 -s TOTAL_MEMORY=67108864 -O2 -g3 $$OBJFILES pdftex.bc -s INVOKE_RUN=0 --pre-js pre.js --post-js post.js -o pdftex-worker.js
 
 clean:
