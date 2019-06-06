@@ -26,8 +26,7 @@ texlive.lst: ./texlive
 
 ./binary/${SOURCE_DIR}/build-pdftex/texk/web2c/pdftex: pdftex-1.40.11.zip
 	mkdir -p binary
-	cd binary && wget $(PDFTEX_URL)
-	cd binary && unzip -o pdftex-1.40.11.zip
+	cd binary && unzip -o ../pdftex-1.40.11.zip
 	cd binary && cd ${SOURCE_DIR} && ./build-pdftex.sh -C \
 		--disable-all-pkgs \
 		--enable-pdftex \
